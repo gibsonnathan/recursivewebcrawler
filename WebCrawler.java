@@ -8,20 +8,32 @@ import java.util.Collections;
  */
 public class WebCrawler {
 
-    public static void main(String[]args) throws IncorrectProtocolError{
+    public static void main(String[]args) throws IncorrectProtocolError,
+            NegativeDepthException{
 
         String address = "";
+        int depth = 0;
 
         //command line arguments
         if(args.length == 0){
             System.err.println("Usage: java WebCrawler -url " +
-                    "http://example.com/");
+                    "http://example.com/ [-depth 5]");
             System.exit(0);
         }
         for (int i = 0; i < args.length; i++) {
             if (args[i].equals("-url")) {
                 address = args[++i];
-            } else {
+            }
+            else if(args[i].equals("-depth")){
+                if(Integer.parseInt(args[++i]) >= 0){
+                    depth = Integer.parseInt(args[i]);
+                }
+                else{
+                    throw new NegativeDepthException("Depth must be a " +
+                            "positive integer");
+                }
+            }
+            else {
                 System.err.print("Unknown command line argument ");
                 System.err.print(args[i]);
                 System.err.println(".");
@@ -35,6 +47,7 @@ public class WebCrawler {
             throw new IncorrectProtocolError("Protocol Must be HTTP/HTTPS");
         }
 
+        System.out.println("****"+depth+"****");
         URLFinder finder = new URLFinder(address);
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
 
