@@ -1,5 +1,6 @@
 /**
  *
+ * 
  */
 public class IncorrectProtocolError extends Exception {
 
