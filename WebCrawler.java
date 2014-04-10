@@ -41,22 +41,39 @@ public class WebCrawler {
             }
         }
 
+        if(address.equals("")){
+            System.err.println("A URL must be entered");
+            System.exit(0);
+        }
+
         //checks to make sure the supplied address is the correct protocol
         if(!address.substring(0,7).equals("http://") && !address
                 .substring(0,8).equals("https://")){
             throw new IncorrectProtocolError("Protocol Must be HTTP/HTTPS");
         }
 
-        System.out.println("****"+depth+"****");
-        URLFinder finder = new URLFinder(address);
-        ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
+        crawl(depth, address);
+    }
 
-        //sorts the arrayList based on number of links
-        Collections.sort(links);
+    public static void crawl(int depth, String address) throws
+            IncorrectProtocolError{
 
-        //prints out all of the links along with their frequency
-        for(Link i : links){
-            System.out.println("[" + i.getCount() + "]" + i.getUrl());
+        if(depth == 0){
+            URLFinder finder = new URLFinder(address);
+            ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
+            //sorts the arrayList based on number of links
+            Collections.sort(links);
+            //prints out all of the links along with their frequency
+            for(Link i : links){
+                System.out.println("[" + i.getCount() + "]" + i.getUrl());
+            }
+        }else{
+
+            System.out.println(depth);
+
         }
+
+
+
     }
 }
