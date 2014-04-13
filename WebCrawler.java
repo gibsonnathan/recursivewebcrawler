@@ -70,25 +70,22 @@ public class WebCrawler {
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
 
         if(depth == 0){
-
             //sorts the arrayList based on number of links
             Collections.sort(links);
             //prints out all of the links along with their frequency
             for(Link i : links){
-                System.out.println("[" + i.getCount() + "]" + i.getUrl());
+                //System.out.println("[" + i.getCount() + "]" + i.getUrl());
             }
         }
         else{
 
             for(Link i : links){
-                //limiting the amount of "links" that are being followed
-                if(i.getUrl().contains(".com") || i.getUrl().contains(".org")){
-                    System.out.println("=== Crawling: " + i.getUrl() + "at " +
-                            "depth:" + depth + " ===");
+                    System.out.println("=== Crawling: " + i.getUrl() + " at " +
+                          "depth:" + depth + " ===");
                     crawl(depth - 1, i.getUrl());
                 }
 
             }
         }
-    }
+
 }

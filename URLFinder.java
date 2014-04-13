@@ -14,8 +14,7 @@ public class URLFinder {
     private URL url;
     private Scanner sc;
     private ArrayList<Link> links;
-    private final static String linkExpression = "\\s*(?i)href\\s*=\\s*(\\\"" +
-            "([^\"]*\\\")|'[^']*'|([^'\">\\s]+))";
+    private final static String linkExpression = "href=[\\\"\\'](http:\\/\\/|\\.\\/|\\/)?\\w+(\\.\\w+)*(\\/\\w+(\\.\\w+)?)*(\\/|\\?\\w*=\\w*(&\\w*=\\w*)*)?[\\\"\\']";
     private Pattern pattern;
 
     public URLFinder(String address) throws IncorrectProtocolError{
@@ -45,17 +44,24 @@ public class URLFinder {
     //linkExpression, trims the surrounding characters and then adds it to
     //the links list, finally it returns the list
     public ArrayList<Link> getLinks(){
-        String input = "";
-        if(sc.hasNext()){
-            input = sc.next();
-        }else{
+        String input =  sc.next();
 
-        }
 
         Matcher matcher = pattern.matcher(input);
         while(matcher.find()){
             String address = matcher.group();
-            address = address.substring(6).replace("\"", "");
+            if(address.contains("href")){
+                address = address.substring(6).replace("\"", "");
+            }else if(address.contains("/")){
+                //address = address.substring(0, address.lastIndexOf("/"));
+            }
+            else if(address.contains("/")){
+                //address = address.substring(0, address.lastIndexOf("/"));
+            }
+
+            System.out.println(address);
+
+
             Link link = new Link(address);
             if(containsLink(links, link.getUrl())){
                 for(Link i : links){
