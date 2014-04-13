@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 /**
  *
@@ -41,6 +42,7 @@ public class WebCrawler {
             }
         }
 
+        //makes sure that the user actually entered an address
         if(address.equals("")){
             System.err.println("A URL must be entered");
             System.exit(0);
@@ -52,28 +54,41 @@ public class WebCrawler {
             throw new IncorrectProtocolError("Protocol Must be HTTP/HTTPS");
         }
 
+
         crawl(depth, address);
+
     }
 
+
+
+    //recursively crawls the links in the address until the depth is equal to
+    // zero
     public static void crawl(int depth, String address) throws
             IncorrectProtocolError{
 
+        URLFinder finder = new URLFinder(address);
+        ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
+
         if(depth == 0){
-            URLFinder finder = new URLFinder(address);
-            ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
+
             //sorts the arrayList based on number of links
             Collections.sort(links);
             //prints out all of the links along with their frequency
             for(Link i : links){
                 System.out.println("[" + i.getCount() + "]" + i.getUrl());
             }
-        }else{
-
-            System.out.println(depth);
-
         }
+        else{
 
+            for(Link i : links){
+                //limiting the amount of "links" that are being followed
+                if(i.getUrl().contains(".com") || i.getUrl().contains(".org")){
+                    System.out.println("=== Crawling: " + i.getUrl() + "at " +
+                            "depth:" + depth + " ===");
+                    crawl(depth - 1, i.getUrl());
+                }
 
-
+            }
+        }
     }
 }

@@ -45,7 +45,13 @@ public class URLFinder {
     //linkExpression, trims the surrounding characters and then adds it to
     //the links list, finally it returns the list
     public ArrayList<Link> getLinks(){
-        String input = sc.next();
+        String input = "";
+        if(sc.hasNext()){
+            input = sc.next();
+        }else{
+
+        }
+
         Matcher matcher = pattern.matcher(input);
         while(matcher.find()){
             String address = matcher.group();
