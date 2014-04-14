@@ -44,7 +44,12 @@ public class URLFinder {
 
 
     public ArrayList<Link> getLinks(){
-        String input =  sc.next();
+
+        String input = "";
+        if(sc.hasNext()){
+            input =  sc.next();
+        }
+
 
         Matcher matcher = pattern.matcher(input);
         while(matcher.find()){
