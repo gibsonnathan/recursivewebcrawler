@@ -74,14 +74,14 @@ public class WebCrawler {
             Collections.sort(links);
             //prints out all of the links along with their frequency
             for(Link i : links){
-                //System.out.println("[" + i.getCount() + "]" + i.getUrl());
+                System.out.println("[" + i.getCount() + "]" + i.getUrl());
             }
         }
         else{
 
             for(Link i : links){
                     System.out.println("=== Crawling: " + i.getUrl() + " at " +
-                          "depth:" + depth + " ===");
+                            "depth " + depth + " ===");
                     crawl(depth - 1, i.getUrl());
                 }
 

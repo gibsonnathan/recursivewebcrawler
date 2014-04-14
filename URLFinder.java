@@ -40,40 +40,16 @@ public class URLFinder {
         links = new ArrayList<Link>();
     }
 
-    //reads the entire stream from Scanner, finds anything that matches
-    //linkExpression, trims the surrounding characters and then adds it to
-    //the links list, finally it returns the list
+
     public ArrayList<Link> getLinks(){
         String input =  sc.next();
-
 
         Matcher matcher = pattern.matcher(input);
         while(matcher.find()){
             String address = matcher.group();
-            if(address.contains("href")){
-                address = address.substring(6).replace("\"", "");
-            }else if(address.contains("/")){
-                //address = address.substring(0, address.lastIndexOf("/"));
-            }
-            else if(address.contains("/")){
-                //address = address.substring(0, address.lastIndexOf("/"));
-            }
-
-            System.out.println(address);
-
-
+            address = address.substring(6).replace("\"", "");
             Link link = new Link(address);
-            if(containsLink(links, link.getUrl())){
-                for(Link i : links){
-                    if(i.getUrl().equals(link.getUrl())){
-                        i.increaseCount();
-                        break;
-                    }
-                }
-            }
-            else{
-                links.add(link);
-            }
+            links.add(link);
         }
         return links;
     }
