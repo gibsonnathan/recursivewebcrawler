@@ -34,4 +34,8 @@ public class Link implements Comparable<Link>{
         else
             return 1;
     }
+    public String toString(){
+
+        return this.getUrl();
+    }
 }

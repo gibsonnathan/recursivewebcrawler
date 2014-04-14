@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
+import java.util.*;
+
 
 /**
  *
@@ -67,25 +67,22 @@ public class WebCrawler {
             IncorrectProtocolError{
 
         URLFinder finder = new URLFinder(address);
+        //get an ArrayList of all the links on address
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
 
+
         if(depth == 0){
-            //sorts the arrayList based on number of links
-            Collections.sort(links);
-            //prints out all of the links along with their frequency
             for(Link i : links){
-                System.out.println("[" + i.getCount() + "]" + i.getUrl());
+                System.out.println(i);
             }
         }
         else{
-
             for(Link i : links){
-                    System.out.println("=== Crawling: " + i.getUrl() + " at " +
-                            "depth " + depth + " ===");
-                    crawl(depth - 1, i.getUrl());
-                }
-
+                crawl(depth - 1, i.getUrl());
             }
         }
+
+    }
+
 
 }

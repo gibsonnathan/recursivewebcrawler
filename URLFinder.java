@@ -14,7 +14,9 @@ public class URLFinder {
     private URL url;
     private Scanner sc;
     private ArrayList<Link> links;
-    private final static String linkExpression = "href=[\\\"\\'](http:\\/\\/|\\.\\/|\\/)?\\w+(\\.\\w+)*(\\/\\w+(\\.\\w+)?)*(\\/|\\?\\w*=\\w*(&\\w*=\\w*)*)?[\\\"\\']";
+    private final static String linkExpression = "href=[\\\"\\'](http:\\/\\/|\\" +
+            ".\\/|\\/)?\\w+(\\.\\w+)*(\\/\\w+(\\.\\w+)?)" +
+            "*(\\/|\\?\\w*=\\w*(&\\w*=\\w*)*)?[\\\"\\']";
     private Pattern pattern;
 
     public URLFinder(String address) throws IncorrectProtocolError{
