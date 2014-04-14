@@ -1,3 +1,4 @@
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.*;
 
@@ -53,13 +54,8 @@ public class WebCrawler {
                 .substring(0,8).equals("https://")){
             throw new IncorrectProtocolError("Protocol Must be HTTP/HTTPS");
         }
-
-
         crawl(depth, address);
-
     }
-
-
 
     //recursively crawls the links in the address until the depth is equal to
     // zero
@@ -67,9 +63,7 @@ public class WebCrawler {
             IncorrectProtocolError{
 
         URLFinder finder = new URLFinder(address);
-        //get an ArrayList of all the links on address
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
-
 
         if(depth == 0){
             for(Link i : links){
@@ -81,8 +75,5 @@ public class WebCrawler {
                 crawl(depth - 1, i.getUrl());
             }
         }
-
     }
-
-
 }

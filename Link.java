@@ -10,7 +10,6 @@ public class Link implements Comparable<Link>{
     public Link(String url){
         this.url = url;
     }
-
     public String getUrl(){
         return this.url;
     }
@@ -24,7 +23,6 @@ public class Link implements Comparable<Link>{
     }
 
     public int compareTo(Link link){
-
         if(link.getCount() < this.getCount()){
             return -1;
         }
@@ -34,8 +32,8 @@ public class Link implements Comparable<Link>{
         else
             return 1;
     }
-    public String toString(){
 
+    public String toString(){
         return this.getUrl();
     }
 }
