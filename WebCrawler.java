@@ -104,6 +104,7 @@ public class WebCrawler {
                 allLinks.add(i);
         }
         else{
+            allLinks.addAll(links);
             for(Link i : links){
                 //only crawl if the site is HTTP or HTTPS
                 if(i.getUrl().contains("http://") || i.getUrl().contains
