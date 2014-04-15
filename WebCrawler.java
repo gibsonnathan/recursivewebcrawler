@@ -11,6 +11,7 @@ public class WebCrawler {
 
         String address = "";
         int depth = 0;
+        ArrayList<Link> links = new ArrayList<Link>();
 
         //command line arguments
         if(args.length == 0){
@@ -50,28 +51,30 @@ public class WebCrawler {
                 .substring(0,8).equals("https://")){
             throw new IncorrectProtocolError("Protocol Must be HTTP/HTTPS");
         }
-        crawl(depth, address);
+
+        crawl(depth, address, links);
+
+        for(Link i : links)
+            System.out.println(i);
     }
 
-    //recursively crawls the links in the address until the depth is equal to
-    // zero
-    public static void crawl(int depth, String address) throws
+
+    public static void crawl(int depth, String address,
+                             ArrayList<Link> allLinks) throws
             IncorrectProtocolError{
-
-
 
         URLFinder finder = new URLFinder(address);
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
 
         if(depth == 0){
             for(Link i : links){
-                System.out.println(i);
+                allLinks.add(i);
             }
         }
         else{
             for(Link i : links){
                 if(i.getUrl().contains("http")){
-                    crawl(depth - 1, i.getUrl());
+                    crawl(depth - 1, i.getUrl(), allLinks);
                 }
             }
         }
