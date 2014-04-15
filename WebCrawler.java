@@ -1,8 +1,4 @@
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.*;
-
-
 /**
  *
  *
@@ -62,6 +58,8 @@ public class WebCrawler {
     public static void crawl(int depth, String address) throws
             IncorrectProtocolError{
 
+
+
         URLFinder finder = new URLFinder(address);
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
 
@@ -72,7 +70,9 @@ public class WebCrawler {
         }
         else{
             for(Link i : links){
-                crawl(depth - 1, i.getUrl());
+                if(i.getUrl().contains("http")){
+                    crawl(depth - 1, i.getUrl());
+                }
             }
         }
     }
