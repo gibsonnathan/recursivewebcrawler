@@ -1,11 +1,11 @@
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
- *
- *
- *
+ * WebCrawler takes a URL argument and potentially a depth argument from the
+ * command line. WebCrawler then recursively crawls the URL to the desired
+ * depth and prints out all of the links on the pages along with their
+ * frequency.
  */
 public class WebCrawler {
 
@@ -55,9 +55,11 @@ public class WebCrawler {
             throw new IncorrectProtocolError("Protocol Must be HTTP/HTTPS");
         }
 
+        //crawls the link to the desired depth, adding the results to the
+        // links array
         crawl(depth, address, links);
 
-        //increases the count of any link that appears multiple time
+        //increases the count of any link that appears multiple times
         for(Link i : links){
             for(Link j : links){
                 if(i.getUrl().equals(j.getUrl())){
@@ -66,8 +68,7 @@ public class WebCrawler {
             }
         }
 
-
-
+        //an arrayList to contain the unique links
         ArrayList<Link> duplicatesRemoved = new ArrayList<Link>();
 
         for(Link i : links){
@@ -76,15 +77,21 @@ public class WebCrawler {
             }
         }
 
+        //sort the ArrayList so that when it is printed it will list the most
+        // frequent links first
         Collections.sort(duplicatesRemoved);
 
+        //print the links along with their frequency
         for(Link i : duplicatesRemoved){
             System.out.println("[" + i.getCount() + "]" + i.getUrl());
         }
 
     }
 
-
+    //finds all the links on the given address, if the depth is greater
+    // than zero, crawl then "crawls" the subsequent links and decrements the
+    // depth until depth is equal to zero, then adds all of the found links
+    // to allLinks
     public static void crawl(int depth, String address,
                              ArrayList<Link> allLinks) throws
             IncorrectProtocolError{
@@ -93,13 +100,14 @@ public class WebCrawler {
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
 
         if(depth == 0){
-            for(Link i : links){
+            for(Link i : links)
                 allLinks.add(i);
-            }
         }
         else{
             for(Link i : links){
-                if(i.getUrl().contains("http")){
+                //only crawl if the site is HTTP or HTTPS
+                if(i.getUrl().substring(0,7).equals("http://") || i.getUrl()
+                        .substring(0,8).equals("https://")){
                     crawl(depth - 1, i.getUrl(), allLinks);
                 }
             }

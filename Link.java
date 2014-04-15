@@ -1,10 +1,9 @@
 /**
- *
- *
- *
+ *The link class is a container for a String link that makes it easier to
+ * couple a link with its frequency
  */
-import java.util.*;
 public class Link implements Comparable<Link>{
+
     private String url;
     private int count = 0;
 
@@ -38,18 +37,17 @@ public class Link implements Comparable<Link>{
         return this.getUrl();
     }
 
+    //Overrides equals to determine if two links are equal based on their
+    // URL, particularly useful when using the contains method
     public boolean equals(Object o) {
         // If the object is compared with itself then return true
         if (o == this) {
             return true;
         }
-
         if (!(o instanceof Link)) {
             return false;
         }
-
         Link link = (Link) o;
-
         return link.getUrl().equals(this.getUrl());
     }
 }

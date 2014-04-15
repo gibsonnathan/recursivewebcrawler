@@ -6,8 +6,9 @@ import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 /**
- *
- *
+ * The URLFinder class takes a web address and creates a URL object. The
+ * stream from the URL is read in and compared to a Regular Expression that
+ * determines what pieces of the page are links.
  */
 public class URLFinder {
 
@@ -27,7 +28,6 @@ public class URLFinder {
             System.err.println("MalformedURLException " + e.getMessage());
         }
         try{
-
             sc = new Scanner(url.openStream());
             //using this delimiter, scanner reads in the entire stream,
             // allowing the entire page to be
@@ -42,6 +42,8 @@ public class URLFinder {
         links = new ArrayList<Link>();
     }
 
+    //reads the HTML and finds all of the text that matches
+    // linkExpression, and then returns all of the matches in an ArrayList
     public ArrayList<Link> getLinks(){
         String input = "";
         if(sc.hasNext()){

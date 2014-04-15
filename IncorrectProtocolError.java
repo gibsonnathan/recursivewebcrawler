@@ -1,6 +1,6 @@
 /**
- *
- *
+ *IncorrectProtocolError is an exception that is thrown if the user supplies
+ * a URL that is not of the HTTP or HTTPS protocols
  */
 public class IncorrectProtocolError extends Exception {
 
