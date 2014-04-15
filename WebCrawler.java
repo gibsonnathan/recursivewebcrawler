@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 /**
  *
  *
@@ -54,8 +57,31 @@ public class WebCrawler {
 
         crawl(depth, address, links);
 
-        for(Link i : links)
-            System.out.println(i);
+        //increases the count of any link that appears multiple time
+        for(Link i : links){
+            for(Link j : links){
+                if(i.getUrl().equals(j.getUrl())){
+                    i.increaseCount();
+                }
+            }
+        }
+
+
+
+        ArrayList<Link> duplicatesRemoved = new ArrayList<Link>();
+
+        for(Link i : links){
+            if(!duplicatesRemoved.contains(i)){
+                duplicatesRemoved.add(i);
+            }
+        }
+
+        Collections.sort(duplicatesRemoved);
+
+        for(Link i : duplicatesRemoved){
+            System.out.println("[" + i.getCount() + "]" + i.getUrl());
+        }
+
     }
 
 
