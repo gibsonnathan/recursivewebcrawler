@@ -71,6 +71,7 @@ public class WebCrawler {
         //an arrayList to contain the unique links
         ArrayList<Link> duplicatesRemoved = new ArrayList<Link>();
 
+        //adds all the unique links to the arrayList
         for(Link i : links){
             if(!duplicatesRemoved.contains(i)){
                 duplicatesRemoved.add(i);
@@ -93,8 +94,7 @@ public class WebCrawler {
     // depth until depth is equal to zero, then adds all of the found links
     // to allLinks
     public static void crawl(int depth, String address,
-                             ArrayList<Link> allLinks) throws
-            IncorrectProtocolError{
+                             ArrayList<Link> allLinks){
 
         URLFinder finder = new URLFinder(address);
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());

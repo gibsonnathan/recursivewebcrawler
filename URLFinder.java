@@ -20,7 +20,7 @@ public class URLFinder {
             "*(\\/|\\?\\w*=\\w*(&\\w*=\\w*)*)?[\\\"\\']";
     private Pattern pattern;
 
-    public URLFinder(String address) throws IncorrectProtocolError{
+    public URLFinder(String address){
         try{
             this.url = new URL(address);
         }
@@ -51,6 +51,7 @@ public class URLFinder {
         }
         Matcher matcher = pattern.matcher(input);
         while(matcher.find()){
+
             String address = matcher.group();
             address = address.substring(6).replace("\"", "");
             Link link = new Link(address);
