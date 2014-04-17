@@ -100,8 +100,9 @@ public class WebCrawler {
         ArrayList<Link> links = new ArrayList<Link>(finder.getLinks());
 
         if(depth == 0){
-            for(Link i : links)
+            for(Link i : links){
                 allLinks.add(i);
+            }
         }
         else{
             allLinks.addAll(links);
